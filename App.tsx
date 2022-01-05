@@ -1,10 +1,13 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
+import { StatusBar } from 'expo-status-bar';
+import { ThemeProvider } from 'styled-components/native'
+
 import { useFonts, DMSans_400Regular } from '@expo-google-fonts/dm-sans';
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 
 import Teste from '@screens/Teste';
+import theme from './src/theme'
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -17,8 +20,11 @@ export default function App() {
   } else {
     return (
       <>
-        <StatusBar style="light" />
-        <Teste />
+        <ThemeProvider theme={theme}>
+
+          <StatusBar style="light" />
+          <Teste />
+        </ThemeProvider>
       </>
     );
   }
