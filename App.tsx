@@ -7,7 +7,7 @@ import { useFonts, DMSans_400Regular } from '@expo-google-fonts/dm-sans';
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 
 import theme from './src/theme'
-import SignIn from '@screens/SignIn';
+import { Routes } from './src/routes';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -22,7 +22,7 @@ export default function App() {
       <>
         <ThemeProvider theme={theme}>
           <StatusBar style="light" />
-          <SignIn />
+          <Routes />
         </ThemeProvider>
       </>
     );
