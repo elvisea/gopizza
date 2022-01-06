@@ -10,6 +10,7 @@ import theme from './src/theme'
 import { Routes } from './src/routes';
 
 export default function App() {
+  
   let [fontsLoaded] = useFonts({
     DMSans_400Regular,
     DMSerifDisplay_400Regular
@@ -21,7 +22,7 @@ export default function App() {
     return (
       <>
         <ThemeProvider theme={theme}>
-          <StatusBar style="light" />
+          <StatusBar style="light" translucent backgroundColor='transparent' />
           <Routes />
         </ThemeProvider>
       </>
