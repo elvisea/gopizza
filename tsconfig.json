@@ -5,17 +5,20 @@
     "baseUrl": "./",
     "paths": {
       "@src/*": [
-        "./src/*"
-      ],
-      "@assets/*": [
-        "./src/assets/*"
-      ],
-      "@screens/*": [
-        "./src/screens/*"
+        "src/*"
       ],
       "@components/*": [
-        "./src/components/*"
+        "src/components/*"
+      ],
+      "@screens/*": [
+        "src/screens/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
       ],
     }
-  },
+  }
 }

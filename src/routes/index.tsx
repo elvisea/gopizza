@@ -2,12 +2,10 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { UserStackRoutes } from './user.stack.routes';
 
-const Routes = () => {
+export const Routes = () => {
   return (
     <NavigationContainer>
       <UserStackRoutes />
     </NavigationContainer>
   )
-}
-
-export { Routes };
+};
