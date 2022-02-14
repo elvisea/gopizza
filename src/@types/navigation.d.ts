@@ -1,17 +1,17 @@
-export type ProductNavigationsProps = {
+export type ProductNavigationProps = {
   id?: string;
-}
+};
 
-export type OrderNavigationsProps = {
+export type OrderNavigationProps = {
   id: string;
-}
+};
 
 export declare global {
   namespace ReactNavigation {
-    interface RootParamsList {
+    interface RootParamList {
       home: undefined;
-      product: ProductNavigationsProps;
-      order: OrderNavigationsProps;
+      product: ProductNavigationProps;
+      order: OrderNavigationProps;
       orders: undefined;
     }
   }
