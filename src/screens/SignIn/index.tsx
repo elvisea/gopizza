@@ -17,7 +17,7 @@ import {
 } from './styles';
 
 export function SignIn() {
-  const { isLogging, signIn } = useAuth()
+  const { isLogging, signIn, forgotPassword } = useAuth()
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +28,7 @@ export function SignIn() {
 
   function handleForgotPassword() {
     console.log("=> =>")
+    forgotPassword(email);
   }
 
   return (
