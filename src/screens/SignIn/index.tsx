@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { useAuth } from '@hooks/auth';
 import brandImg from '@assets/brand.png';
-
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
@@ -17,13 +17,13 @@ import {
 } from './styles';
 
 export function SignIn() {
+  const { isLogging, signIn } = useAuth()
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  console.log(`E-MAIL: ${email} PASSWORD: ${password}`)
-  function handleSignIn() {
-    console.log("=> =>")
+  async function handleSignIn() {
+    await signIn(email, password);
   }
 
   function handleForgotPassword() {
@@ -63,7 +63,7 @@ export function SignIn() {
               title="Entrar"
               type="secondary"
               onPress={() => handleSignIn()}
-              isLoading={false}
+              isLoading={isLogging}
             />
           </GestureHandlerRootView>
         </Content>
