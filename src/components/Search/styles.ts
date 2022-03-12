@@ -1,7 +1,5 @@
-
-import { TextInput } from 'react-native';
-import styled, { css } from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
+import styled, { css } from "styled-components/native";
+import { TextInput } from "react-native";
 
 export const Container = styled.View`
   width: 100%;
@@ -16,12 +14,12 @@ export const InputArea = styled.View`
   flex-direction: row;
   align-items: center;
   border-radius: 16px;
+
   ${({ theme }) => css`
     background-color: ${theme.COLORS.TITLE};
-    border: 1px solid ${theme.COLORS.SHAPE}
-  `};
+    border: 1px solid ${theme.COLORS.SHAPE};
+  `}
 `;
-
 export const Input = styled(TextInput)`
   flex: 1;
   height: 52px;
@@ -33,12 +31,12 @@ export const ButtonClear = styled.TouchableOpacity`
   margin-right: 7px;
 `;
 
-export const Button = styled(RectButton)`
+export const Button = styled.TouchableOpacity`
   width: 52px;
   height: 52px;
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.COLORS.SUCCESS_900};
   border-radius: 18px;
-  margin-right: 7px;
+  margin-left: 7px;
 `;

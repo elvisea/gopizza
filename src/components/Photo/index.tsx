@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { Image, Placeholder, PlaceholderText } from './styles';
+import { Image, Placeholder, PlaceholderTitle } from "./styles";
 
 type Props = {
   uri: string | null;
@@ -13,7 +13,7 @@ export function Photo({ uri }: Props) {
 
   return (
     <Placeholder>
-      <PlaceholderText>Nenhuma foto{'\n'} Carregada</PlaceholderText>
+      <PlaceholderTitle>Nenhuma foto{"\n"} carregada</PlaceholderTitle>
     </Placeholder>
   );
 }

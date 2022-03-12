@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import React, { useState } from "react";
 
-import { useAuth } from '@hooks/auth';
-import brandImg from '@assets/brand.png';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
+import { KeyboardAvoidingView, Platform } from "react-native";
+
+import { useAuth } from "@hooks/auth";
+
+import { Input } from "@components/Input";
+import { Button } from "@components/Button";
+
+import brandImg from "@assets/brand.png";
 
 import {
   Container,
@@ -14,27 +16,26 @@ import {
   Brand,
   ForgotPasswordButton,
   ForgotPasswordLabel,
-} from './styles';
+} from "./styles";
 
 export function SignIn() {
-  const { isLogging, signIn, forgotPassword } = useAuth()
+  const { isLogging, signIn, forgotPassword } = useAuth();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  async function handleSignIn() {
-    await signIn(email, password);
+  function handleSignIn() {
+    signIn(email, password);
   }
 
   function handleForgotPassword() {
-    console.log("=> =>")
     forgotPassword(email);
   }
 
   return (
     <Container>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
       >
         <Content>
           <Brand source={brandImg} />
@@ -42,31 +43,30 @@ export function SignIn() {
           <Title>Login</Title>
 
           <Input
-            placeholder="E-mail"
             type="secondary"
+            placeholder="E-mail"
             autoCorrect={false}
             autoCapitalize="none"
-            onChangeText={setEmail}
+            keyboardType="email-address"
+            onChangeText={(text) => setEmail(text)}
           />
           <Input
-            placeholder="Senha"
             type="secondary"
+            placeholder="Senha"
             secureTextEntry
-            onChangeText={setPassword}
+            onChangeText={(text) => setPassword(text)}
           />
 
-          <ForgotPasswordButton onPress={() => handleForgotPassword()}>
+          <ForgotPasswordButton onPress={handleForgotPassword}>
             <ForgotPasswordLabel>Esqueci minha senha</ForgotPasswordLabel>
           </ForgotPasswordButton>
 
-          <GestureHandlerRootView>
-            <Button
-              title="Entrar"
-              type="secondary"
-              onPress={() => handleSignIn()}
-              isLoading={isLogging}
-            />
-          </GestureHandlerRootView>
+          <Button
+            type="secondary"
+            title="Entrar"
+            isLoading={isLogging}
+            onPress={handleSignIn}
+          />
         </Content>
       </KeyboardAvoidingView>
     </Container>

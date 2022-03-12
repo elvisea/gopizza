@@ -1,20 +1,20 @@
-import { Alert } from 'react-native';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import React, {
   createContext,
   useContext,
   ReactNode,
   useState,
   useEffect,
-} from 'react';
+} from "react";
+
+import { Alert } from "react-native";
+import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type User = {
   id: string;
+  email: string;
   name: string;
-  isAdmin: boolean;
 };
 
 type AuthContextData = {
@@ -34,58 +34,54 @@ const USER_COLLECTION = '@gopizza:user';
 export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
   const [isLogging, setIsLogging] = useState(false);
-  console.log("user => ", user)
+  const [user, setUser] = useState<User | null>(null);
+
   async function signIn(email: string, password: string) {
     if (!email || !password) {
-      return Alert.alert('Login', 'Informe o email e a senha para continuar.');
+      return Alert.alert("Login", "Informe o e-mail e a senha");
     }
-
     setIsLogging(true);
 
     auth()
       .signInWithEmailAndPassword(email, password)
       .then((account) => {
         firestore()
-          .collection('users')
+          .collection("users")
           .doc(account.user.uid)
           .get()
           .then(async (profile) => {
-            const { name, isAdmin } = profile.data() as User;
+            const { name, email } = profile.data() as User;
 
             if (profile.exists) {
               const userData = {
                 id: account.user.uid,
+                email,
                 name,
-                isAdmin,
               };
-
               await AsyncStorage.setItem(
                 USER_COLLECTION,
                 JSON.stringify(userData)
               );
-              console.log("userData => ", userData)
               setUser(userData);
             }
           })
           .catch(() => {
-            Alert.alert(
-              'Login',
-              'Erro ao tentar recuperar o perfil do usuário.'
-            );
+            Alert.alert("Login", "Erro ao carregar o perfil do usuário");
           });
       })
       .catch((error) => {
         const { code } = error;
 
-        if (code === 'auth/user-not-found' || code === 'auth/wrong-password') {
-          return Alert.alert('Login', 'E-mail e/ou senha incorretos.');
+        if (code === "auth/user-not-found" || code === "auth/wrong-password") {
+          return Alert.alert("Login", "E-mail ou senha inválidos");
         } else {
-          return Alert.alert('Login', 'Erro ao realizar login.');
+          return Alert.alert("Login", "Erro ao fazer login");
         }
       })
-      .finally(() => setIsLogging(false));
+      .finally(() => {
+        setIsLogging(false);
+      });
   }
 
   async function loadUserStorageData() {
@@ -95,36 +91,34 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     if (storedUser) {
       const userData = JSON.parse(storedUser) as User;
-      console.log("LOCAL =>", userData)
       setUser(userData);
     }
-
     setIsLogging(false);
   }
 
   async function signOut() {
     await auth().signOut();
     await AsyncStorage.removeItem(USER_COLLECTION);
+
     setUser(null);
   }
 
   async function forgotPassword(email: string) {
     if (!email) {
-      return Alert.alert('Redefinir Senha', 'Informe o email para continuar.');
+      return Alert.alert("Redefinir senha", "Informe o e-mail");
     }
-
     auth()
       .sendPasswordResetEmail(email)
       .then(() => {
         Alert.alert(
-          'Redefinir Senha',
-          'Enviamos um link no seu e-mail para redefinir sua senha. Verifique sua caixa de entrada.'
+          "Redefinir senha",
+          "Enviamos um link no seu e-mail para redefinir a sua senha"
         );
       })
       .catch(() => {
         Alert.alert(
-          'Redefinir Senha',
-          'Ocorreu um erro ao tentar enviar o link para redefinir sua senha. Verifique se o e-mail informado está correto.'
+          "Redefinir senha",
+          "Não foi possível enviar o e-mail para redefinir a sua senha"
         );
       });
   }
@@ -136,9 +130,9 @@ function AuthProvider({ children }: AuthProviderProps) {
   return (
     <AuthContext.Provider
       value={{
-        user,
-        isLogging,
         signIn,
+        isLogging,
+        user,
         signOut,
         forgotPassword,
       }}

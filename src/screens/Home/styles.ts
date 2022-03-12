@@ -1,39 +1,45 @@
-import styled, { css } from 'styled-components/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import styled, { css } from "styled-components/native";
+import { LinearGradient } from "expo-linear-gradient";
+import {
+  getBottomSpace,
+  getStatusBarHeight,
+} from "react-native-iphone-x-helper";
+import { Button } from "@components/Button";
 
 export const Container = styled.View`
-	flex: 1;
-	background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
+  flex: 1;
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
 `;
 
 export const Header = styled(LinearGradient).attrs(({ theme }) => ({
   colors: theme.COLORS.GRADIENT,
 }))`
-	width: 100%;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding: ${getStatusBarHeight() + 33}px 24px 58px;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: ${getStatusBarHeight() + 33}px 24px 58px;
 `;
 
 export const Greeting = styled.View`
-	flex-direction: row;
-	align-items: center;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const GreetingEmoji = styled.Image`
-	height: 32px;
-	width: 32px;
-	margin-right: 12px;
+  height: 32px;
+  width: 32px;
+  margin-right: 12px;
 `;
 
 export const GreetingText = styled.Text`
-	font-size: 20px;
-	${({ theme }) => css`
-		font-family: ${theme.FONTS.TITLE};
-		color: ${theme.COLORS.TITLE};
-	`};
+  font-size: 20px;
+
+  ${({ theme }) => css`
+    font-family: ${theme.FONTS.TITLE};
+    color: ${theme.COLORS.TITLE};
+  `}
 `;
 
 export const MenuHeader = styled.View`
@@ -51,14 +57,20 @@ export const MenuItemsNumber = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.SECONDARY_900};
-  `};
+  `}
 `;
 
 export const Title = styled.Text`
-  font-size: 22px;
-  line-height: 26px;
+  font-size: 20px;
+  line-height: 20px;
+
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TITLE};
     color: ${theme.COLORS.SECONDARY_900};
-  `};
+  `}
+`;
+
+export const NewProductButton = styled(Button)`
+  margin: 0 24px;
+  margin-bottom: ${getBottomSpace() + 12}px;
 `;

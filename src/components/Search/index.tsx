@@ -1,32 +1,29 @@
-import React from 'react';
-import { TextInputProps } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { useTheme } from 'styled-components/native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import React from "react";
+import { TextInputProps } from "react-native";
+import { useTheme } from "styled-components/native";
+import Icon from "@expo/vector-icons/Feather";
 
-import { Container, Input, Button, InputArea, ButtonClear } from './styles';
+import { Container, InputArea, Input, ButtonClear, Button } from "./styles";
 
 type Props = TextInputProps & {
-  onClear: () => void;
   onSearch: () => void;
+  onClear: () => void;
 };
 
-export function Search({ onSearch, onClear, ...rest }: Props) {
+export function Search({ onClear, onSearch, ...rest }: Props) {
   const { COLORS } = useTheme();
-
   return (
     <Container>
       <InputArea>
-        <Input {...rest} placeholder="Pesquisar" />
+        <Input placeholder="pesquisar..." {...rest} />
+
         <ButtonClear onPress={onClear}>
-          <Feather name="x" size={16} />
+          <Icon name="x" size={16} />
         </ButtonClear>
       </InputArea>
-      <GestureHandlerRootView>
-        <Button onPress={onSearch}>
-          <Feather name="search" size={16} color={COLORS.TITLE} />
-        </Button>
-      </GestureHandlerRootView>
+      <Button onPress={onSearch}>
+        <Icon name="search" size={16} color={COLORS.TITLE} />
+      </Button>
     </Container>
   );
 }
